@@ -9,6 +9,7 @@ pymupdf4llm
 seaborn
 # Common Requirements
 numpy
+scipy
 transformers
 datasets
 tiktoken
@@ -27,3 +28,4 @@ jsonschema
 omegaconf
 botocore
 boto3
+psutil

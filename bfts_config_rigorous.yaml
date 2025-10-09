@@ -1,0 +1,122 @@
+# Rigorous BFTS Configuration for High-Quality Research Papers
+# Optimized for Google Colab Pro with A100 GPU
+# Focus: Maximum quality, statistical rigor, error prevention
+
+# path to the task data directory
+data_dir: "data"
+preprocess_data: False
+
+goal: null
+eval: null
+
+log_dir: logs
+workspace_dir: workspaces
+
+# whether to copy the data to the workspace directory (otherwise it will be symlinked)
+# copying is recommended to prevent the agent from accidentally modifying the original data
+copy_data: True
+
+exp_name: run # a random experiment name will be generated if not provided
+
+# settings for code execution
+exec:
+  timeout: 3600  # 1 hour timeout for each execution
+  agent_file_name: runfile.py
+  format_tb_ipython: False
+
+generate_report: True
+
+# LLM settings for final report from journal
+report:
+  model: gpt-4o-2024-11-20
+  temp: 0.7
+  max_tokens: 8192
+
+experiment:
+  num_syn_datasets: 1
+
+debug:
+  stage4: False
+
+# Enhanced agent hyperparams for rigorous research
+agent:
+  type: parallel
+  num_workers: 4  # Sakana's recommended default
+  
+  # Stage-specific iterations for thorough exploration
+  stages:
+    stage1_max_iters: 30  # Initial exploration - increased from 20
+    stage2_max_iters: 20  # Refinement - increased from 12
+    stage3_max_iters: 20  # Further refinement - increased from 12
+    stage4_max_iters: 25  # Final optimization - increased from 18
+  
+  # Fallback if stage-specific max_iters are not provided
+  steps: 5
+  
+  # Cross-validation disabled (set to 1)
+  k_fold_validation: 1
+  
+  # Multi-seed evaluation for statistical rigor
+  multi_seed_eval:
+    num_seeds: 5  # Increased from 3 for better confidence intervals
+  
+  # Prediction function exposure (disabled)
+  expose_prediction: False
+  
+  # Data preview (disabled)
+  data_preview: False
+
+  # LLM settings for coding - Claude 3.5 Sonnet (best for code generation)
+  code:
+    model: claude-3-5-sonnet-20241022  # Using direct API, not Bedrock for Colab
+    temp: 1.0
+    max_tokens: 12000
+
+  # LLM settings for evaluating program output / tracebacks - GPT-4o (fast, reliable)
+  feedback:
+    model: gpt-4o-2024-11-20
+    temp: 0.5
+    max_tokens: 8192
+
+  # Visual feedback model - GPT-4o with vision
+  vlm_feedback:
+    model: gpt-4o-2024-11-20
+    temp: 0.5
+    max_tokens: 8192
+
+  # Enhanced search configuration for error handling
+  search:
+    max_debug_depth: 5  # Increased from 3 - more thorough debugging
+    debug_prob: 0.7     # Increased from 0.5 - higher probability of debugging
+    num_drafts: 3       # Number of initial draft solutions to explore
+
+# Validation and quality gates (custom additions)
+validation:
+  enable_unit_tests: True
+  enable_code_quality_checks: True
+  enable_statistical_analysis: True
+  enable_hallucination_detection: True
+  min_confidence_threshold: 0.7
+  require_error_bars: True
+
+# Checkpointing configuration for Colab resilience
+checkpointing:
+  enabled: True
+  save_interval_minutes: 30  # Save every 30 minutes
+  save_to_drive: True
+  drive_folder: "AI_Scientist_Checkpoints"
+  max_checkpoints: 10  # Keep last 10 checkpoints
+
+# Error handling and recovery
+error_handling:
+  max_retries: 3
+  retry_delay_seconds: 5
+  log_all_errors: True
+  fallback_to_simpler_model: False  # Stay with high-quality models
+
+# Resource management for Colab
+resources:
+  max_memory_gb: 40  # A100 GPU has ~40GB
+  enable_memory_monitoring: True
+  clear_cache_interval: 10  # Clear GPU cache every 10 iterations
+
