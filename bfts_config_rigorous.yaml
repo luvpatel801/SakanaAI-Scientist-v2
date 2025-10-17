@@ -26,9 +26,9 @@ exec:
 
 generate_report: True
 
-# LLM settings for final report from journal
+# LLM settings for final report from journal - Using o1 for maximum quality
 report:
-  model: gpt-4o-2024-11-20
+  model: o1-2024-12-17
   temp: 0.7
   max_tokens: 8192
 
