@@ -238,9 +238,9 @@ def save_run(cfg: Config, journal, stage_name: str = None):
     except Exception as e:
         print(f"Error generating tree: {e}")
         raise
-    # save the best found solution (prefer only_good to avoid saving buggy code)
+    # save the best found solution
     try:
-        best_node = journal.get_best_node(only_good=True)
+        best_node = journal.get_best_node(only_good=False)
         if best_node is not None:
             for existing_file in save_dir.glob("best_solution_*.py"):
                 existing_file.unlink()
