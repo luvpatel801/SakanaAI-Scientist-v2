@@ -237,7 +237,7 @@ class Node(DataClassJsonMixin):
             "exc_stack": self.exc_stack,
             "analysis": self.analysis,
             "exp_results_dir": (
-                str(Path(self.exp_results_dir).resolve().relative_to(os.getcwd()))
+                str(Path(self.exp_results_dir).resolve())
                 if self.exp_results_dir
                 else None
             ),
@@ -260,7 +260,7 @@ class Node(DataClassJsonMixin):
             "plots": self.plots,
             "plot_paths": (
                 [
-                    str(Path(p).resolve().relative_to(os.getcwd()))
+                    str(Path(p).resolve())
                     for p in self.plot_paths
                 ]
                 if self.plot_paths
@@ -270,11 +270,7 @@ class Node(DataClassJsonMixin):
                 {
                     **analysis,
                     "plot_path": (
-                        str(
-                            Path(analysis["plot_path"])
-                            .resolve()
-                            .relative_to(os.getcwd())
-                        )
+                        str(Path(analysis["plot_path"]).resolve())
                         if analysis.get("plot_path")
                         else None
                     ),
