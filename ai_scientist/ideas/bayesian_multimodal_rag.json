@@ -1,0 +1,22 @@
+[
+  {
+    "Name": "bayesian_multimodal_rag",
+    "Title": "Bayesian Uncertainty-Guided Retrieval for Multimodal Chain-of-Thought in LLMs",
+    "Short Hypothesis": "Incorporating a lightweight Bayesian uncertainty estimation framework into retrieval-augmented multimodal LLMs can dynamically detect when internal model confidence is insufficient. When confidence is low, the system triggers targeted retrieval calls across text, image, or structured databases. This approach reduces hallucinations and error propagation by explicitly modeling uncertainty at each step of chain-of-thought and adaptively fusing external knowledge.",
+    "Related Work": "Recent adaptive retrieval-augmented generation (RAG) techniques, such as Rowen, SeaKR, and CtrlA, demonstrate the advantage of uncertainty- or confidence-based triggers for retrieval. However, these methods typically focus on single or reactive triggers tied to text-only QA. Our proposal extends these ideas by integrating explicit Bayesian modeling of uncertainty into multimodal retrieval-augmented systems, refining retrieval and fusion decisions across diverse modalities (images, text, tables), thereby distinguishing itself from prior work that rarely tracks and utilizes continuous, Bayesian-style uncertainty for cross-modal tasks.",
+    "Abstract": "We propose a Bayesian uncertainty-guided retrieval mechanism for multimodal chain-of-thought in large language models (LLMs). While emerging adaptive RAG approaches mitigate hallucinations by invoking external information when model confidence is low, existing frameworks often rely on deterministic or heuristic confidence metrics. Our approach instead incorporates a lightweight Bayesian uncertainty estimator that tracks posterior distributions over reasoning steps. When uncertainty surpasses a learned threshold, the system selectively retrieves external evidence, potentially combining multiple modalities (e.g., textual documents, images, tabular data) based on query needs. This addresses two gaps: (1) explicit, continuous uncertainty modeling for each chain-of-thought step; and (2) flexible, modality-aware retrieval that can reconcile multiple sources to reduce spurious correlations and factual errors. By adopting a principled Bayesian foundation, we anticipate more robust decision-making for real-world tasks subject to domain shifts or noisy inputs. Our proposed pipeline is designed for academic labs, leveraging open-source LLMs and modest GPU resources, and it can be evaluated with standard multimodal QA tasks. We expect this method to substantially cut hallucination rates, improve factual consistency, and provide clearer interpretability by explicitly surfacing uncertainty, thus pushing the frontier of retrieval-augmented multimodal reasoning.",
+    "Experiments": [
+      "1. Bayesian vs. Heuristic Confidence Baselines: Compare a Bayesian uncertainty estimator with deterministic confidence thresholds (e.g., from Rowen, SeaKR) in triggering retrieval for multimodal QA tasks. Metrics: answer accuracy, retrieval frequency, and hallucination rate.",
+      "2. Modality-Aware Retrieval Trigger: Evaluate how well the Bayesian model identifies the need for text, image, or tabular retrieval under a single pipeline. We measure retrieval coverage, final reasoning consistency, and performance on tasks with conflicting or partial multimodal evidence.",
+      "3. Cross-Domain Robustness: Test with domain shifts (e.g., new images or updated textual knowledge). Observe how Bayesian triggers handle uncertain domains and adapt retrieval accordingly. Metrics: out-of-domain accuracy and calibration curves.",
+      "4. Ablation Study: Remove the Bayesian module, revert to a fixed confidence threshold, and measure performance changes in factual consistency and error propagation. This clarifies the unique contribution of uncertainty estimation."
+    ],
+    "Risk Factors and Limitations": [
+      "Implementing a Bayesian component may introduce extra computational overhead for uncertainty tracking, requiring optimization to maintain feasible runs in smaller labs.",
+      "Miscalibrated Bayesian estimations could lead to over-retrieval, causing performance slowdowns and potential user confusion.",
+      "Combining multiple modalities under uncertainty poses integration challenges if strong cross-modal alignment or attention mechanisms are not well-tuned.",
+      "In practice, labeled data for calibration might be limited, potentially restricting the accuracy of the Bayesian uncertainty model."
+    ]
+  }
+]
+

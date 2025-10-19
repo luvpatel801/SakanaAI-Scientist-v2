@@ -44,7 +44,7 @@ def parse_arguments():
     parser.add_argument(
         "--writeup-type",
         type=str,
-        default="icbinb",
+        default="normal",
         choices=["normal", "icbinb"],
         help="Type of writeup to generate (normal=8 page, icbinb=4 page)",
     )
@@ -85,13 +85,13 @@ def parse_arguments():
     parser.add_argument(
         "--model_agg_plots",
         type=str,
-        default="o3-mini-2025-01-31",
+        default="gpt-4o-2024-11-20",
         help="Model to use for plot aggregation",
     )
     parser.add_argument(
         "--model_writeup",
         type=str,
-        default="o1-preview-2024-09-12",
+        default="o1-2024-12-17",
         help="Model to use for writeup",
     )
     parser.add_argument(
@@ -103,7 +103,7 @@ def parse_arguments():
     parser.add_argument(
         "--num_cite_rounds",
         type=int,
-        default=20,
+        default=26,
         help="Number of citation rounds to perform",
     )
     parser.add_argument(
